@@ -27,8 +27,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
-  static private double WHEEL_DIAMETER = 0.1016;
-  static private double GEARING = 12.86;
+  static private double WHEEL_DIAMETER = 0.1524;
+  static private double GEARING = 7.88;
 
   Joystick stick;
   DifferentialDrive drive;
@@ -78,12 +78,18 @@ public class Robot extends TimedRobot {
     rightEncoder = rightMaster.getEncoder();
 
     // Configure slaves
-    CANSparkMax leftSlave0 = new CANSparkMax(4, MotorType.kBrushless);
-    leftSlave0.follow(leftMaster);
-    leftSlave0.setIdleMode(IdleMode.kBrake);
-    CANSparkMax rightSlave0 = new CANSparkMax(5, MotorType.kBrushless);
-    rightSlave0.follow(rightMaster);
-    rightSlave0.setIdleMode(IdleMode.kBrake);
+    CANSparkMax leftSlave1 = new CANSparkMax(4, MotorType.kBrushless);
+    leftSlave1.follow(leftMaster);
+    leftSlave1.setIdleMode(IdleMode.kBrake);
+    CANSparkMax rightSlave1 = new CANSparkMax(5, MotorType.kBrushless);
+    rightSlave1.follow(rightMaster);
+    rightSlave1.setIdleMode(IdleMode.kBrake);
+    CANSparkMax leftSlave2 = new CANSparkMax(6, MotorType.kBrushless);
+    leftSlave2.follow(leftMaster);
+    leftSlave2.setIdleMode(IdleMode.kBrake);
+    CANSparkMax rightSlave2 = new CANSparkMax(7, MotorType.kBrushless);
+    rightSlave2.follow(rightMaster);
+    rightSlave2.setIdleMode(IdleMode.kBrake);
 
     // Note that the angle from the NavX and all implementors of wpilib Gyro
     // must be negated because getAngle returns a clockwise positive angle
