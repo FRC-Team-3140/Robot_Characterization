@@ -90,8 +90,8 @@ public class Robot extends TimedRobot {
     // degrees and degrees/sec both (CCWP, Counter clockwise positive; -180deg. to 0deg. to 180deg.)
     //
     // Gyro supplier methods
-    angularPosition = () -> -1 * navx.getYaw();
-    angularRate = () -> -1 * navx.getRate();
+    angularPosition = () -> -navx.getAngle();
+    angularRate = () -> -navx.getRate();
 
     // Configure drivetrain movement
     drive = new DifferentialDrive(leftMaster, rightMaster);
@@ -105,7 +105,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // Push values to smart dashboard to allow user to check sensors
-    SmartDashboard.putNumber("Gyro Heading (deg): ", gyroAngleDegrees.get());
+    SmartDashboard.putNumber("Gyro Heading (deg): ", angularPosition.get());
+    SmartDashboard.putNumber("Gyro Rate (deg/s): ", angularRate.get());
   }
 
   public void resetAllSensors() {
@@ -117,7 +118,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     resetAllSensors();
     System.out.println("Robot disabled");
-    armMotor.set(0);
+    drive.tankDrive(0, 0);
   }
 
   @Override
