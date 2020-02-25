@@ -65,12 +65,16 @@ public class Robot extends TimedRobot {
     // Joystick
     stick = new Joystick(0);
 
+    // Left and/or Right Sides Inverted
+    boolean leftInverted = true;
+    boolean rightInverted = false;
+
     // Configure masters
     leftMaster = new CANSparkMax(3, MotorType.kBrushless);
-    leftMaster.setInverted(false);
+    leftMaster.setInverted(leftInverted);
     leftMaster.setIdleMode(IdleMode.kBrake);
     rightMaster = new CANSparkMax(2, MotorType.kBrushless);
-    rightMaster.setInverted(false);
+    rightMaster.setInverted(rightInverted);
     rightMaster.setIdleMode(IdleMode.kBrake);
 
     // Configure encoders
@@ -81,15 +85,19 @@ public class Robot extends TimedRobot {
     CANSparkMax leftSlave1 = new CANSparkMax(4, MotorType.kBrushless);
     leftSlave1.follow(leftMaster);
     leftSlave1.setIdleMode(IdleMode.kBrake);
+    leftSlave1.setInverted(leftInverted);
     CANSparkMax rightSlave1 = new CANSparkMax(5, MotorType.kBrushless);
     rightSlave1.follow(rightMaster);
     rightSlave1.setIdleMode(IdleMode.kBrake);
+    rightSlave1.setInverted(rightInverted);
     CANSparkMax leftSlave2 = new CANSparkMax(6, MotorType.kBrushless);
     leftSlave2.follow(leftMaster);
     leftSlave2.setIdleMode(IdleMode.kBrake);
+    leftSlave2.setInverted(leftInverted);
     CANSparkMax rightSlave2 = new CANSparkMax(7, MotorType.kBrushless);
     rightSlave2.follow(rightMaster);
     rightSlave2.setIdleMode(IdleMode.kBrake);
+    rightSlave2.setInverted(rightInverted);
 
     // Note that the angle from the NavX and all implementors of wpilib Gyro
     // must be negated because getAngle returns a clockwise positive angle
@@ -115,9 +123,9 @@ public class Robot extends TimedRobot {
         -> leftEncoder.getVelocity() * encoderConstant / 60.;
 
     rightEncoderPosition = ()
-        -> -rightEncoder.getPosition() * encoderConstant;
+        -> rightEncoder.getPosition() * encoderConstant;
     rightEncoderRate = ()
-        -> -rightEncoder.getVelocity() * encoderConstant / 60.;
+        -> rightEncoder.getVelocity() * encoderConstant / 60.;
 
     // Reset encoders
     leftEncoder.setPosition(0);
